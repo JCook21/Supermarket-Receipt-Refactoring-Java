@@ -22,6 +22,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+dependencies {
+    implementation 'junit:junit:4.12'
+    implementation 'com.approvaltests:approvaltests:9.3.0'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
