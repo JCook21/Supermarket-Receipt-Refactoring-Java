@@ -23,4 +23,14 @@ public class ShoppingCartTests
 
 		Approvals.verify(shoppingCart.productQuantities());
 	}
+
+	@Test
+	public void addSameProductTwiceWithDifferentQuantities() {
+		Product newProduct = new Product("Cheerios ", ProductUnit.Each);
+
+		shoppingCart.addItemQuantity(newProduct, 1.0);
+		shoppingCart.addItemQuantity(newProduct, 2.0);
+
+		Approvals.verify(shoppingCart.productQuantities());
+	}
 }
