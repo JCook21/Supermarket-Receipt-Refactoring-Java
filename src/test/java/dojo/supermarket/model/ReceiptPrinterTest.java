@@ -37,7 +37,19 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    public void cartWithOneSpecialOffer() {
+    public void cartWithOneSpecialOffer()
+    {
+        Product redMeat = new Product("Red Meat", ProductUnit.Kilo);
+        Product chicken = new Product("Chicken", ProductUnit.Kilo);
+        catalog.addProduct(chicken, 2.56);
+        catalog.addProduct(redMeat, 1.99);
+        cart.addItem(redMeat);
+        cart.addItem(chicken);
+        teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, redMeat, 10.0);
 
+        Receipt receipt = teller.checksOutArticlesFrom(cart);
+        String receiptString = receiptPrinter.printReceipt(receipt);
+
+        Approvals.verify(receiptString);
     }
 }

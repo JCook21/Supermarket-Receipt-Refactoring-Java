@@ -1,0 +1,5 @@
+Red Meat                            1.99
+Chicken                             2.56
+10.0% off(Red Meat)                -0.20
+
+Total:                              4.35
