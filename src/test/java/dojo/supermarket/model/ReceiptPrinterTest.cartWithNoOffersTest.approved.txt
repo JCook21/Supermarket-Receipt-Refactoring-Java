@@ -1,0 +1,4 @@
+Cheerios                            1.99
+Cornflakes                          2.56
+
+Total:                              4.55
