@@ -1,0 +1,5 @@
+Toothbrush                          2.97
+  0.99 * 3
+3 for 2(Toothbrush)                -0.99
+
+Total:                              1.98
