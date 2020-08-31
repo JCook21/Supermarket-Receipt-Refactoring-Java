@@ -52,4 +52,21 @@ public class ReceiptPrinterTest {
 
         Approvals.verify(receiptString);
     }
+
+    @Test
+    public void cartWithMultipleDiscounts() {
+        Product toothbrush = new Product("Toothbrush", ProductUnit.Each);
+        Product toothpaste = new Product("Toothpaste", ProductUnit.Each);
+        catalog.addProduct(toothpaste, 1.79);
+        catalog.addProduct(toothbrush, 0.99);
+        cart.addItemQuantity(toothbrush, 3);
+        cart.addItemQuantity(toothpaste, 5);
+        teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, 0.99);
+        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, toothpaste, 7.49);
+
+        Receipt receipt = teller.checksOutArticlesFrom(cart);
+        String receiptString = receiptPrinter.printReceipt(receipt);
+
+        Approvals.verify(receiptString);
+    }
 }
