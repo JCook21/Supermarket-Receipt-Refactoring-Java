@@ -69,4 +69,18 @@ public class ReceiptPrinterTest {
 
         Approvals.verify(receiptString);
     }
+
+
+    @Test
+    public void cartWithTwoForAmountOfferQuantityMoreThanTwo() {
+        Product boxOfCherryTomatoes = new Product("Box of Cherry Tomatoes", ProductUnit.Each);
+        catalog.addProduct(boxOfCherryTomatoes, 0.69);
+        cart.addItemQuantity(boxOfCherryTomatoes, 3);
+        teller.addSpecialOffer(SpecialOfferType.TwoForAmount, boxOfCherryTomatoes, 0.99);
+
+        Receipt receipt = teller.checksOutArticlesFrom(cart);
+        String receiptString = receiptPrinter.printReceipt(receipt);
+
+        Approvals.verify(receiptString);
+    }
 }
