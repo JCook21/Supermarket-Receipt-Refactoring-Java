@@ -74,6 +74,8 @@ public class ReceiptPrinterTest {
     }
 
 
+
+
     @Test
     public void cartWithThreeForTwoOfferDiscount() {
         Product toothbrush = new Product("Toothbrush", ProductUnit.Each);
@@ -88,10 +90,11 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    public void cartWithFiveForAmountDiscount() {
+    public void cartWithFiveForAmountDiscountAddedTwice() {
         Product toothpaste = new Product("Toothpaste", ProductUnit.Each);
         catalog.addProduct(toothpaste, 1.79);
-        cart.addItemQuantity(toothpaste, 5);
+        cart.addItemQuantity(toothpaste, 3);
+        cart.addItemQuantity(toothpaste, 2);
         teller.addSpecialOffer(SpecialOfferType.FiveForAmount, toothpaste, 7.49);
 
         Receipt receipt = teller.checksOutArticlesFrom(cart);
