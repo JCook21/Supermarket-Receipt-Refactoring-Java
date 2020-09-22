@@ -44,8 +44,8 @@ public class ReceiptPrinterTest {
         Product chicken = new Product("Chicken", ProductUnit.Kilo);
         catalog.addProduct(chicken, 2.56);
         catalog.addProduct(redMeat, 1.99);
+        cart.addItemQuantity(chicken, 2.0);
         cart.addItem(redMeat);
-        cart.addItem(chicken);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, redMeat, 10.0);
 
         Receipt receipt = teller.checksOutArticlesFrom(cart);
