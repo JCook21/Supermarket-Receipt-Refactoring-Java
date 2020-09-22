@@ -2,7 +2,7 @@ package dojo.supermarket.model;
 
 import java.util.Objects;
 
-public class Product {
+public class Product implements Comparable<Product>{
     private final String name;
     private final ProductUnit unit;
 
@@ -42,5 +42,10 @@ public class Product {
                 "name='" + name + '\'' +
                 ", unit=" + unit +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return name.compareToIgnoreCase(o.getName());
     }
 }

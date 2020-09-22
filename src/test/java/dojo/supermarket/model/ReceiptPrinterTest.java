@@ -55,7 +55,7 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     // Need to fix bug with Set
     public void cartWithMultipleDiscounts() {
         Product toothbrush = new Product("Toothbrush", ProductUnit.Each);

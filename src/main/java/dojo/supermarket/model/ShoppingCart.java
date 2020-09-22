@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ShoppingCart {
 
@@ -34,7 +35,7 @@ public class ShoppingCart {
     }
 
     void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
-        for (Product p: productQuantities().keySet()) {
+        for (Product p: productQuantities().keySet().stream().sorted().collect(Collectors.toList())) {
             double quantity = productQuantities.get(p);
             if (offers.containsKey(p)) {
                 Offer offer = offers.get(p);
