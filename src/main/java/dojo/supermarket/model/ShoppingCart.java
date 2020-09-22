@@ -1,7 +1,9 @@
 package dojo.supermarket.model;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ShoppingCart {
 
@@ -46,9 +48,9 @@ public class ShoppingCart {
                 } else if (offer.getOfferType() == SpecialOfferType.TwoForAmount) {
                     x = 2;
                     if (quantityAsInt >= 2) {
-                        double total = offer.argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+                        double total = offer.getAppleSauce() * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
                         double discountN = unitPrice * quantity - total;
-                        discount = new Discount(p, "2 for " + offer.argument, discountN);
+                        discount = new Discount(p, "2 for " + offer.getAppleSauce(), discountN);
                     }
 
                 } if (offer.getOfferType() == SpecialOfferType.FiveForAmount) {
@@ -60,11 +62,11 @@ public class ShoppingCart {
                     discount = new Discount(p, "3 for 2", discountAmount);
                 }
                 if (offer.getOfferType() == SpecialOfferType.TenPercentDiscount) {
-                    discount = new Discount(p, offer.argument + "% off", quantity * unitPrice * offer.argument / 100.0);
+                    discount = new Discount(p, offer.getAppleSauce() + "% off", quantity * unitPrice * offer.getAppleSauce() / 100.0);
                 }
                 if (offer.getOfferType() == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
-                    double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                    discount = new Discount(p, x + " for " + offer.argument, discountTotal);
+                    double discountTotal = unitPrice * quantity - (offer.getAppleSauce() * numberOfXs + quantityAsInt % 5 * unitPrice);
+                    discount = new Discount(p, x + " for " + offer.getAppleSauce(), discountTotal);
                 }
                 if (discount != null)
                     receipt.addDiscount(discount);

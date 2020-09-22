@@ -7,14 +7,14 @@ import java.util.Map;
 public class Teller {
 
     private final SupermarketCatalog catalog;
-    private Map<Product, Offer> offers = new HashMap<>();
+    private final Map<Product, Offer> offers = new HashMap<>();
 
     public Teller(SupermarketCatalog catalog) {
         this.catalog = catalog;
     }
 
     public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        this.offers.put(product, new Offer(offerType, argument));
+        offers.put(product, new Offer(offerType, argument));
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
