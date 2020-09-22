@@ -34,44 +34,48 @@ public class ShoppingCart {
     }
 
     void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
-        for (Product p: productQuantities().keySet()) {
-            double quantity = productQuantities.get(p);
-            if (offers.containsKey(p)) {
-                Offer offer = offers.get(p);
-                double unitPrice = catalog.getUnitPrice(p);
+        for (Product product: productQuantities().keySet()) {
+            double quantity = productQuantities.get(product);
+            if (offers.containsKey(product)) {
+                Offer offer = offers.get(product);
+                double unitPrice = catalog.getUnitPrice(product);
                 int quantityAsInt = (int) quantity;
                 Discount discount = null;
-                int x = 1;
+                int offerQuantity = 1;
                 if (offer.getOfferType() == SpecialOfferType.ThreeForTwo) {
-                    x = 3;
+                    offerQuantity = 3;
 
                 } else if (offer.getOfferType() == SpecialOfferType.TwoForAmount) {
-                    x = 2;
+                    offerQuantity = 2;
                     if (quantityAsInt >= 2) {
-                        double total = offer.getAppleSauce() * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+                        double total = offer.getAppleSauce() * (quantityAsInt / offerQuantity) + quantityAsInt % 2 * unitPrice;
                         double discountN = unitPrice * quantity - total;
-                        discount = new Discount(p, "2 for " + offer.getAppleSauce(), discountN);
+                        discount = new Discount(product, "2 for " + offer.getAppleSauce(), discountN);
                     }
 
                 } if (offer.getOfferType() == SpecialOfferType.FiveForAmount) {
-                    x = 5;
+                    offerQuantity = 5;
                 }
-                int numberOfXs = quantityAsInt / x;
-                if (offer.getOfferType() == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
-                    double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
-                    discount = new Discount(p, "3 for 2", discountAmount);
+                int tacos = quantityAsInt / offerQuantity;
+                if (isValidThreeForTwoOffer(offer, quantityAsInt)) {
+                    double discountAmount = quantity * unitPrice - ((tacos * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+                    discount = new Discount(product, "3 for 2", discountAmount);
                 }
                 if (offer.getOfferType() == SpecialOfferType.TenPercentDiscount) {
-                    discount = new Discount(p, offer.getAppleSauce() + "% off", quantity * unitPrice * offer.getAppleSauce() / 100.0);
+                    discount = new Discount(product, offer.getAppleSauce() + "% off", quantity * unitPrice * offer.getAppleSauce() / 100.0);
                 }
                 if (offer.getOfferType() == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
-                    double discountTotal = unitPrice * quantity - (offer.getAppleSauce() * numberOfXs + quantityAsInt % 5 * unitPrice);
-                    discount = new Discount(p, x + " for " + offer.getAppleSauce(), discountTotal);
+                    double discountTotal = unitPrice * quantity - (offer.getAppleSauce() * tacos + quantityAsInt % 5 * unitPrice);
+                    discount = new Discount(product, offerQuantity + " for " + offer.getAppleSauce(), discountTotal);
                 }
                 if (discount != null)
                     receipt.addDiscount(discount);
             }
 
         }
+    }
+
+    private boolean isValidThreeForTwoOffer(Offer offer, int quantityAsInt) {
+        return offer.getOfferType() == SpecialOfferType.ThreeForTwo && quantityAsInt > 2;
     }
 }
