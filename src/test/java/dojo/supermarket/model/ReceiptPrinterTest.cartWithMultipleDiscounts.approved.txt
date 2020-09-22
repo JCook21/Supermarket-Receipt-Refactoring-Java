@@ -1,0 +1,8 @@
+Toothbrush                          2.97
+  0.99 * 3
+Toothpaste                          8.95
+  1.79 * 5
+3 for 2(Toothbrush)                -0.99
+5 for 7.49(Toothpaste)             -1.46
+
+Total:                              9.47
