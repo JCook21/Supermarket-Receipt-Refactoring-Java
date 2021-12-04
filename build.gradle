@@ -5,23 +5,22 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'info.solidsoft.pitest' version '1.7.0'
 }
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2')
-    }
+    mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation 'com.approvaltests:approvaltests:4.0.2'
 }
 
-group = 'org.codingdojo'
+group = 'dojo.supermarket'
 version = '1.0.0-SNAPSHOT'
 
 java {
@@ -29,14 +28,21 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+pitest {
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    jvmArgs = ['-Xmx1024m']
+    fileExtensionsToFilter.addAll('xml', 'orbit')
+    junit5PluginVersion = '0.15'
+    //See https://pitest.org/quickstart/mutators/ for a list of available mutators.
+    mutators = ['CONDITIONALS_BOUNDARY', 'NEGATE_CONDITIONALS', 'REMOVE_CONDITIONALS', 'MATH', 'INCREMENTS', 'INVERT_NEGS',
+                'INLINE_CONSTS', 'EMPTY_RETURNS', 'FALSE_RETURNS', 'TRUE_RETURNS', 'NULL_RETURNS', 'PRIMITIVE_RETURNS',
+                'VOID_METHOD_CALLS', 'NON_VOID_METHOD_CALLS', 'CONSTRUCTOR_CALLS']
+    timestampedReports = false
+}
+
+build.dependsOn 'pitest'
