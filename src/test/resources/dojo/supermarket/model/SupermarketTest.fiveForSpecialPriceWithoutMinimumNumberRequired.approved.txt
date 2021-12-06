@@ -1,0 +1,4 @@
+toothpaste                          7.16
+  1.79 * 4
+
+Total:                              7.16
