@@ -17,7 +17,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    testImplementation 'com.approvaltests:approvaltests:4.0.2'
+    testImplementation 'com.approvaltests:approvaltests:13.0.0'
 }
 
 group = 'dojo.supermarket'
@@ -39,9 +39,7 @@ pitest {
     fileExtensionsToFilter.addAll('xml', 'orbit')
     junit5PluginVersion = '0.15'
     //See https://pitest.org/quickstart/mutators/ for a list of available mutators.
-    mutators = ['CONDITIONALS_BOUNDARY', 'NEGATE_CONDITIONALS', 'REMOVE_CONDITIONALS', 'MATH', 'INCREMENTS', 'INVERT_NEGS',
-                'INLINE_CONSTS', 'EMPTY_RETURNS', 'FALSE_RETURNS', 'TRUE_RETURNS', 'NULL_RETURNS', 'PRIMITIVE_RETURNS',
-                'VOID_METHOD_CALLS', 'NON_VOID_METHOD_CALLS', 'CONSTRUCTOR_CALLS']
+    mutators = ['STRONGER', 'REMOVE_CONDITIONALS', 'INLINE_CONSTS','CONSTRUCTOR_CALLS']
     timestampedReports = false
 }
 
